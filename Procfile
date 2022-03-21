@@ -1,0 +1,1 @@
+web: gunicorn Shishir_2022.wsgi --log-file -

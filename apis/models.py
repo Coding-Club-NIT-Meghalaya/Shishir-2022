@@ -1,5 +1,6 @@
 from django.db import models
 # Create your models here.
+from froala_editor.fields import FroalaField
 
 
 class Year(models.Model):
@@ -15,11 +16,7 @@ class Year(models.Model):
 class Event(models.Model):
     TYPE_CHOICES = (
         ("Main", "Main"),
-        ("Departmental CSE", "Departmental CSE"),
-        ("Departmental ECE", "Departmental ECE"),
-        ("Departmental EE", "Departmental EE"),
-        ("Departmental ME", "Departmental ME"),
-        ("Departmental CE", "Departmental CE"),
+        ("Departmental", "Departmental"),
         ("Gaming", "Gaming"),
         ("Other", "Other"),
     )
@@ -29,14 +26,15 @@ class Event(models.Model):
     type = models.CharField(
         max_length=200, choices=TYPE_CHOICES, default='Coding')
     duration = models.CharField(max_length=100)
-    total_prize = models.CharField(max_length=100)
+    total_prize = FroalaField()
     registration_link = models.CharField(max_length=100)
     year = models.ForeignKey(
         Year, on_delete=models.PROTECT, related_name='event_year')
-    description = models.CharField(max_length=1000)
+    description = FroalaField()
     image = models.CharField(max_length=200)
     live_link = models.CharField(max_length=100)
     doc_link = models.CharField(max_length=100)
+    rules=FroalaField()
 
     def __str__(self):
         return self.name
@@ -65,6 +63,8 @@ class TeamMember(models.Model):
          "Sponsor and Marketing Team Co-Coordinator"),
         ("Web Development Team Head",
          "Web Development Team Head"),
+        ("Web Development Team Coordinator",
+         "Web Development Team Coordinator"),
         ("Web Development Team Co-Coordinator",
          "Web Development Team Co-Coordinator"),
         ("App Development Team Head",
@@ -72,7 +72,7 @@ class TeamMember(models.Model):
         ("App Development Team Coordinator",
          "App Development Team Coordinator"),
         ("App Development Team Co-Coordinator",
-         "Web Development Team Co-Coordinator"),
+         "App Development Team Co-Coordinator"),
 
     )
     member_name = models.CharField(max_length=100)

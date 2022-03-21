@@ -19,7 +19,8 @@ router.register('notification', views.NotificationView,
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path(r'^froala_editor/', include('froala_editor.urls')),
 ]
 
 if settings.DEBUG:
